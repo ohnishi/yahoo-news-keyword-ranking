@@ -419,4 +419,6 @@ CI では `libmecab-dev` を入れたうえで、gofmt チェック・`go vet`�
 
 ## ライセンス
 
-Apache License 2.0. [LICENSE](LICENSE) を参照してください。
+Copyright 2020-2026 ohnishi
+
+Apache License 2.0 のもとで公開しています。全文は [LICENSE](LICENSE) を参照してください。
