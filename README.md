@@ -89,6 +89,25 @@ sudo apt-get install -y mecab libmecab-dev mecab-ipadic-utf8
 fatal error: 'mecab.h' file not found
 ```
 
+### cgo のフラグについて
+
+依存している [go-mecab](https://github.com/shogo82148/go-mecab) は `#cgo` ディレクティブを
+持たないため、MeCab の場所を `CGO_LDFLAGS` / `CGO_CFLAGS` で渡す必要があります。
+渡さないとコンパイルは通ってもリンクで失敗します。
+
+```
+undefined reference to `mecab_new'
+```
+
+`make build` を使えば `mecab-config` から自動で導出するので、通常は意識不要です。
+`go build` を直接叩く場合は次のように設定してください。
+
+```bash
+export CGO_LDFLAGS="$(mecab-config --libs)"
+export CGO_CFLAGS="-I$(mecab-config --inc-dir)"
+go build .
+```
+
 ### 辞書のインストール
 
 新語・固有名詞に強い mecab-ipadic-NEologd を使います。導入手順は本家を参照してください。
@@ -320,6 +339,12 @@ MeCab の素性が **`名詞,固有名詞,人名,一般`** の形態素だけを
 
 MeCab のヘッダが入っていません。[必要環境](#必要環境)のインストール手順を実行してください。
 MeCab を使わない部分のテストだけなら `make test-pure` で実行できます。
+
+### `undefined reference to 'mecab_new'`
+
+コンパイルは通ったがリンクで失敗しています。`CGO_LDFLAGS` が渡っていません。
+[cgo のフラグについて](#cgo-のフラグについて)を参照してください。
+`make build` を使えば自動で設定されます。
 
 ### `mecab dictionary directory not found`
 

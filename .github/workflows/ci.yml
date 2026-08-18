@@ -17,11 +17,19 @@ jobs:
           cache: true
 
       # internal/analyze/mecab は cgo で libmecab にリンクするため、
-      # ビルドにはヘッダが必要（辞書は実行時にのみ必要なので入れない）。
-      - name: Install MeCab headers
+      # ヘッダとライブラリが必要（辞書は実行時にのみ必要なので入れない）。
+      - name: Install MeCab
         run: |
           sudo apt-get update
-          sudo apt-get install -y libmecab-dev
+          sudo apt-get install -y mecab libmecab-dev
+
+      # go-mecab は #cgo ディレクティブを持たないため、MeCab の位置を
+      # 明示的に渡さないとリンク時に undefined reference になる。
+      - name: Configure cgo flags for MeCab
+        run: |
+          mecab-config --version
+          echo "CGO_LDFLAGS=$(mecab-config --libs)" >> "$GITHUB_ENV"
+          echo "CGO_CFLAGS=-I$(mecab-config --inc-dir)" >> "$GITHUB_ENV"
 
       - name: Check formatting
         run: |

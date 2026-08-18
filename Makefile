@@ -1,16 +1,35 @@
 BINARY := wadai
 
+# go-mecab は #cgo ディレクティブを持たないため、MeCab の位置は
+# CGO_LDFLAGS / CGO_CFLAGS で渡す必要がある。mecab-config があれば
+# そこから導出する（無い環境でも test-pure だけは動くよう条件付き）。
+MECAB_CONFIG ?= mecab-config
+ifneq ($(shell command -v $(MECAB_CONFIG) 2>/dev/null),)
+CGO_LDFLAGS := $(shell $(MECAB_CONFIG) --libs)
+CGO_CFLAGS := -I$(shell $(MECAB_CONFIG) --inc-dir)
+export CGO_LDFLAGS
+export CGO_CFLAGS
+endif
+
 # MeCab (cgo) を必要としないパッケージ。libmecab-dev が無い環境でも
 # ここだけはビルド・テストできる。
 PURE_PKGS := $(shell go list ./... | grep -v -e '/internal/cli$$' -e '/internal/analyze/mecab$$' -e '^github.com/ohnishi/yahoo-news-keyword-ranking$$')
 
-.PHONY: all build test test-pure vet fmt fmt-check tidy clean help
+.PHONY: all build check-mecab test test-pure vet fmt fmt-check tidy clean help
 
 all: fmt-check vet test build
 
-## build: バイナリをビルドする（MeCab のヘッダが必要）
-build:
+## build: バイナリをビルドする（MeCab のヘッダとライブラリが必要）
+build: check-mecab
 	go build -o $(BINARY) .
+
+## check-mecab: mecab-config が使えるか確認する
+check-mecab:
+	@command -v $(MECAB_CONFIG) >/dev/null 2>&1 || { \
+		echo "error: $(MECAB_CONFIG) not found."; \
+		echo "  macOS:  brew install mecab"; \
+		echo "  Debian: sudo apt-get install -y mecab libmecab-dev"; \
+		exit 1; }
 
 ## test: 全パッケージのテストを実行する（MeCab のヘッダが必要）
 test:
