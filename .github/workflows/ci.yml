@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      # internal/analyze/mecab は cgo で libmecab にリンクするため、
+      # ビルドにはヘッダが必要（辞書は実行時にのみ必要なので入れない）。
+      - name: Install MeCab headers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libmecab-dev
+
+      - name: Check formatting
+        run: |
+          diff=$(gofmt -s -l .)
+          if [ -n "$diff" ]; then
+            echo "gofmt -s needed for:"
+            echo "$diff"
+            exit 1
+          fi
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Test
+        run: go test -race -coverprofile=coverage.out ./...
+
+      - name: Build
+        run: go build ./...
+
+      - name: Coverage summary
+        run: go tool cover -func=coverage.out | tail -1
