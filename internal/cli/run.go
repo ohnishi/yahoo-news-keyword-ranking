@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/ohnishi/yahoo-news-analysis/internal/daterange"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/daterange"
 )
 
 // newRunCommand はパイプライン全体を一度に実行するコマンドを返す。

@@ -12,11 +12,11 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 
-	"github.com/ohnishi/yahoo-news-analysis/internal/analyze"
-	"github.com/ohnishi/yahoo-news-analysis/internal/analyze/mecab"
-	"github.com/ohnishi/yahoo-news-analysis/internal/daterange"
-	"github.com/ohnishi/yahoo-news-analysis/internal/fetch"
-	"github.com/ohnishi/yahoo-news-analysis/internal/fsutil"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/analyze"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/analyze/mecab"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/daterange"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/fetch"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/fsutil"
 )
 
 // defaultDir は --src / --dest の既定値。
@@ -96,7 +96,7 @@ func NewRootCommand() *cobra.Command {
 	var verbose bool
 
 	root := &cobra.Command{
-		Use:           "yahoo-news-analysis",
+		Use:           "wadai",
 		Short:         "Rank keywords appearing in Yahoo! News article titles",
 		SilenceUsage:  true,
 		SilenceErrors: true,

@@ -17,7 +17,7 @@
 .DS_Store
 
 # Build output
-/yahoo-news-analysis
+/wadai
 
 # Coverage
 coverage.out

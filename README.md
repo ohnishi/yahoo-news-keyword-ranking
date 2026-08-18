@@ -1,11 +1,15 @@
-# yahoo-news-analysis
+# yahoo-news-keyword-ranking
 
-[![CI](https://github.com/ohnishi/yahoo-news-analysis/actions/workflows/ci.yml/badge.svg)](https://github.com/ohnishi/yahoo-news-analysis/actions/workflows/ci.yml)
+[![CI](https://github.com/ohnishi/yahoo-news-keyword-ranking/actions/workflows/ci.yml/badge.svg)](https://github.com/ohnishi/yahoo-news-keyword-ranking/actions/workflows/ci.yml)
 
 Yahoo!ニュースの記事タイトルに登場するキーワードを形態素解析によって抽出して、ランク付けします。
 
 その日のRSSを一通り集め、記事タイトルから人名を取り出し、多くの記事で言及された順に
 並べた Markdown のレポートを生成します。
+
+> **本ツールは Yahoo! JAPAN とは無関係の、非公式な個人プロジェクトです。**
+> 一般に公開されている RSS フィードのみを利用しています。
+> Yahoo! および Yahoo!ニュースは、各権利者の登録商標です。
 
 ## 生成されるもの
 
@@ -105,14 +109,16 @@ https://github.com/neologd/mecab-ipadic-neologd/blob/master/README.ja.md
 make build
 ```
 
-カレントディレクトリに `yahoo-news-analysis` が生成されます。
+カレントディレクトリに `wadai` が生成されます。
+リポジトリ名とは別に、バイナリ名は短い `wadai`（話題）にしてあります。
+変更する場合は `Makefile` の `BINARY` と `internal/cli/cli.go` の `Use` を書き換えてください。
 
 ## クイックスタート
 
 パイプライン全体をまとめて実行する `run` が一番簡単です。
 
 ```bash
-./yahoo-news-analysis run --dest ~/Desktop/analysis
+./wadai run --dest ~/Desktop/analysis
 ```
 
 `--date` を付けずに実行すると、当日分をネットワークから取得してレポート生成まで通します。
@@ -123,10 +129,10 @@ RSS は過去に遡って取得できないため、このときネットワー�
 
 ```bash
 # 特定の日を処理し直す
-./yahoo-news-analysis run --src ~/Desktop/analysis --dest ~/Desktop/analysis --date 20201218
+./wadai run --src ~/Desktop/analysis --dest ~/Desktop/analysis --date 20201218
 
 # 期間をまとめて処理する
-./yahoo-news-analysis run --src ~/Desktop/analysis --dest ~/Desktop/analysis --date 20201201,20201231
+./wadai run --src ~/Desktop/analysis --dest ~/Desktop/analysis --date 20201201,20201231
 ```
 
 期間指定では1日ずつ処理し、ある日が失敗しても残りの日は処理を続けます。
@@ -139,7 +145,7 @@ RSS は過去に遡って取得できないため、このときネットワー�
 ### `yahoo` — フィード一覧の取得
 
 ```bash
-./yahoo-news-analysis yahoo --dest ~/Desktop/analysis
+./wadai yahoo --dest ~/Desktop/analysis
 ```
 
 RSS一覧ページをスクレイピングして `<dest>/rss.jsonl` に保存します。
@@ -148,7 +154,7 @@ RSS一覧ページをスクレイピングして `<dest>/rss.jsonl` に保存し
 ### `rss` — RSSファイルの取得
 
 ```bash
-./yahoo-news-analysis rss --src ~/Desktop/analysis --dest ~/Desktop/analysis
+./wadai rss --src ~/Desktop/analysis --dest ~/Desktop/analysis
 ```
 
 `<src>/rss.jsonl` の各フィードを取得し、`<dest>/<日付>/<feedID>` に保存します。
@@ -160,7 +166,7 @@ RSS は現在の内容しか配信されないため、`--date` は取得内容�
 ### `json` — 対象日の記事を抽出
 
 ```bash
-./yahoo-news-analysis json --src ~/Desktop/analysis --dest ~/Desktop/analysis --date 20201218
+./wadai json --src ~/Desktop/analysis --dest ~/Desktop/analysis --date 20201218
 ```
 
 取得したRSSを解析し、対象日に公開された記事だけを `<dest>/<日付>/rss.jsonl` に抽出します。
@@ -170,7 +176,7 @@ RSS は現在の内容しか配信されないため、`--date` は取得内容�
 ### `analysis` — キーワード抽出
 
 ```bash
-./yahoo-news-analysis analysis --src ~/Desktop/analysis --dest ~/Desktop/analysis --date 20201218
+./wadai analysis --src ~/Desktop/analysis --dest ~/Desktop/analysis --date 20201218
 ```
 
 記事タイトルを形態素解析してキーワードを抽出し、`<dest>/<日付>/topic.json` に保存します。
@@ -179,7 +185,7 @@ RSS は現在の内容しか配信されないため、`--date` は取得内容�
 ### `markdown` — レポート生成
 
 ```bash
-./yahoo-news-analysis markdown --src ~/Desktop/analysis --dest ~/Desktop/analysis --date 20201218
+./wadai markdown --src ~/Desktop/analysis --dest ~/Desktop/analysis --date 20201218
 ```
 
 `topic.json` から `<dest>/<日付>/report.md` を生成します。
@@ -188,7 +194,7 @@ RSS は現在の内容しか配信されないため、`--date` は取得内容�
 ### `run` — 全段の一括実行
 
 ```bash
-./yahoo-news-analysis run --dest ~/Desktop/analysis
+./wadai run --dest ~/Desktop/analysis
 ```
 
 `--date` 未指定なら `yahoo` → `rss` → `json` → `analysis` → `markdown` を当日分に対して通します。
@@ -302,7 +308,7 @@ MeCab の素性が **`名詞,固有名詞,人名,一般`** の形態素だけを
 `run` を1日1回叩くだけです。cron の例:
 
 ```cron
-5 23 * * * /usr/local/bin/yahoo-news-analysis run --dest $HOME/Desktop/analysis >> $HOME/Library/Logs/yahoo-news-analysis.log 2>&1
+5 23 * * * /usr/local/bin/wadai run --dest $HOME/Desktop/analysis >> $HOME/Library/Logs/wadai.log 2>&1
 ```
 
 その日のうちに実行してください。RSS は現在の内容しか配信されないため、

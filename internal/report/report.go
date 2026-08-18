@@ -11,10 +11,10 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/ohnishi/yahoo-news-analysis/internal/analyze"
-	"github.com/ohnishi/yahoo-news-analysis/internal/daterange"
-	"github.com/ohnishi/yahoo-news-analysis/internal/fsutil"
-	"github.com/ohnishi/yahoo-news-analysis/internal/model"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/analyze"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/daterange"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/fsutil"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/model"
 )
 
 // FileName は生成する Markdown のファイル名。

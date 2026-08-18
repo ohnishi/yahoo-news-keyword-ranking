@@ -1,4 +1,4 @@
-module github.com/ohnishi/yahoo-news-analysis
+module github.com/ohnishi/yahoo-news-keyword-ranking
 
 go 1.25.0
 

@@ -11,7 +11,7 @@ import (
 
 	gomecab "github.com/shogo82148/go-mecab"
 
-	"github.com/ohnishi/yahoo-news-analysis/internal/analyze"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/analyze"
 )
 
 // DicDirCandidates は mecab-ipadic-NEologd の一般的なインストール先。

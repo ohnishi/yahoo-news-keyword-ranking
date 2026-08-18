@@ -12,7 +12,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"golang.org/x/net/html/charset"
 
-	"github.com/ohnishi/yahoo-news-analysis/internal/model"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/model"
 )
 
 // FeedListURL は RSS フィード一覧ページのURL。

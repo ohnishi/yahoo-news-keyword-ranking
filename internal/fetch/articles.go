@@ -8,10 +8,10 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/ohnishi/yahoo-news-analysis/internal/daterange"
-	"github.com/ohnishi/yahoo-news-analysis/internal/fsutil"
-	"github.com/ohnishi/yahoo-news-analysis/internal/jsonl"
-	"github.com/ohnishi/yahoo-news-analysis/internal/model"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/daterange"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/fsutil"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/jsonl"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/model"
 )
 
 // SaveFeeds はフィード一覧を dest/rss.jsonl へ保存する。

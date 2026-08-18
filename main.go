@@ -1,4 +1,4 @@
-// Command yahoo-news-analysis は Yahoo!ニュースの記事タイトルから
+// Command wadai は Yahoo!ニュースの記事タイトルから
 // 形態素解析でキーワードを抽出し、ランキングのMarkdownレポートを生成する。
 package main
 
@@ -10,7 +10,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/ohnishi/yahoo-news-analysis/internal/cli"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/cli"
 )
 
 func main() {

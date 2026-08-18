@@ -11,7 +11,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/ohnishi/yahoo-news-analysis/internal/fsutil"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/fsutil"
 )
 
 // Read は path の JSON Lines ファイルを読み、各要素を T にデコードして返す。

@@ -12,10 +12,10 @@ import (
 
 	"github.com/mmcdole/gofeed"
 
-	"github.com/ohnishi/yahoo-news-analysis/internal/daterange"
-	"github.com/ohnishi/yahoo-news-analysis/internal/fetch"
-	"github.com/ohnishi/yahoo-news-analysis/internal/jsonl"
-	"github.com/ohnishi/yahoo-news-analysis/internal/model"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/daterange"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/fetch"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/jsonl"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/model"
 )
 
 // ArticlesFileName は抽出結果の保存ファイル名。

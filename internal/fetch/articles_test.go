@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ohnishi/yahoo-news-analysis/internal/model"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/model"
 )
 
 func TestArticlesSavesEachFeedUnderItsID(t *testing.T) {

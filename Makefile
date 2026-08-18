@@ -1,8 +1,8 @@
-BINARY := yahoo-news-analysis
+BINARY := wadai
 
 # MeCab (cgo) を必要としないパッケージ。libmecab-dev が無い環境でも
 # ここだけはビルド・テストできる。
-PURE_PKGS := $(shell go list ./... | grep -v -e '/internal/cli$$' -e '/internal/analyze/mecab$$' -e '^github.com/ohnishi/yahoo-news-analysis$$')
+PURE_PKGS := $(shell go list ./... | grep -v -e '/internal/cli$$' -e '/internal/analyze/mecab$$' -e '^github.com/ohnishi/yahoo-news-keyword-ranking$$')
 
 .PHONY: all build test test-pure vet fmt fmt-check tidy clean help
 

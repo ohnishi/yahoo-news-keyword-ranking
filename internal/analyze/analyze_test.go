@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ohnishi/yahoo-news-analysis/internal/model"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/model"
 )
 
 // fakeTokenizer は空白区切りで分割し、personNames に含まれる語だけを

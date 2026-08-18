@@ -7,11 +7,11 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/ohnishi/yahoo-news-analysis/internal/analyze"
-	"github.com/ohnishi/yahoo-news-analysis/internal/daterange"
-	"github.com/ohnishi/yahoo-news-analysis/internal/extract"
-	"github.com/ohnishi/yahoo-news-analysis/internal/fetch"
-	"github.com/ohnishi/yahoo-news-analysis/internal/report"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/analyze"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/daterange"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/extract"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/fetch"
+	"github.com/ohnishi/yahoo-news-keyword-ranking/internal/report"
 )
 
 // newFeedsCommand は RSS フィード一覧を取得するコマンドを返す。
